@@ -1,0 +1,38 @@
+rules:
+  prefer-object-spread: error
+  no-buffer-constructor: error
+  no-restricted-syntax:
+    # Config copied from .eslintrc.js
+    - error
+    - selector: "CallExpression[callee.object.name='assert']:not([callee.property.name='ok']):not([callee.property.name='fail']):not([callee.property.name='ifError'])"
+      message: "Please only use simple assertions in ./lib"
+    - selector: "CallExpression[callee.name='setTimeout'][arguments.length<2]"
+      message: "setTimeout() must be invoked with at least two arguments."
+    - selector: "CallExpression[callee.name='setInterval'][arguments.length<2]"
+      message: "setInterval() must be invoked with at least 2 arguments."
+    - selector: "ThrowStatement > CallExpression[callee.name=/Error$/]"
+      message: "Use new keyword when throwing an Error."
+    # Config specific to lib
+    - selector: "NewExpression[callee.name=/Error$/]:not([callee.name=/^(AssertionError|NghttpError)$/])"
+      message: "Use an error exported by the internal/errors module."
+  # Custom rules in tools/eslint-rules
+  node-core/require-globals: error
+  node-core/lowercase-name-for-primitive: error
+  node-core/non-ascii-character: error
+globals:
+  CHECK: false
+  CHECK_EQ: false
+  CHECK_GE: false
+  CHECK_GT: false
+  CHECK_LE: false
+  CHECK_LT: false
+  CHECK_NE: false
+  DCHECK: false
+  DCHECK_EQ: false
+  DCHECK_GE: false
+  DCHECK_GT: false
+  DCHECK_LE: false
+  DCHECK_LT: false
+  DCHECK_NE: false
+  internalBinding: false
+  primordials: false
